@@ -16,3 +16,5 @@ Testleriniz sırasında aşağıdaki kart numaralarını ve diğer bilgileri kul
 | Sıra No 	| Kart Numarası    	| SKT   	| CVC 	|
 |---------	|------------------	|-------	|-----	|
 | 1       	| 4282209004348015 	| 12/22 	| 123 	|
+| 2       	| 5401341234567891 	| 12/26 	| 000 	|
+| 3       	| 4531444531442283 	| 12/20 	| 001 	|
