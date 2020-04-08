@@ -6,9 +6,11 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="tr">
+    <meta http-equiv="content-type" content="text/html; charset=windows-1254">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WireCard Classic ASP Test Ortamı</title>
-	<link rel="icon" href="favicon.png">
+	<link rel="icon" href="/favicon.png">
 </head>
 <body>
     <%
@@ -16,14 +18,14 @@
         '-- WireCard Non 3D Payment ------------------------------------------
         '---------------------------------------------------------------------
         response.Clear()
-        
-        response.write("<script language=javascript>console.log('WireCard Non 3D Payment'); </script>")
 
+        dim statusCode, resultCode, resultMessage
+        
         dim saleRequest
         set saleRequest = new CCProxySaleRequest
         saleRequest.ServiceType     = "CCProxy"
         saleRequest.OperationType   = "Sale"
-        saleRequest.IPAddress       = "178.251.45.163"
+        saleRequest.IPAddress       = "127.0.0.1"
         saleRequest.PaymentContent  = "Test"
         saleRequest.InstallmentCount = "0"
 
@@ -38,7 +40,7 @@
         saleRequest.ExpireYear      = "2026"
         saleRequest.ExpireMonth     = "12"
         saleRequest.Cvv             = "000"
-        saleRequest.Price           = "1"
+        saleRequest.Price           = "1000"
 
         ' CardTokenization Bilgileri
         saleRequest.RequestType     = "0"
@@ -51,13 +53,39 @@
         saleRequest.CustomerSurname = "Günay"
         saleRequest.CustomerEmail   = "hakangunay@gmail.com"
 
-        response.write saleRequest.Execute
+        dim wirecardResponse
+        wirecardResponse = saleRequest.Execute
 
+        if len(wirecardResponse) > 0 then
+            dim responseXml
+            set responseXml     = Server.CreateObject("Microsoft.XMLDOM")
+            responseXml.async   = True
+            responseXml.LoadXML wirecardResponse
+
+            dim resultNodes
+            set resultNodes = responseXml.selectNodes("//Item")
+            
+            for each node in resultNodes
+                dim nodeKey, nodeValue
+                nodeKey = node.getAttribute("Key")
+                nodeValue = node.getAttribute("Value")
+                
+                select case nodeKey
+                    case "StatusCode"
+                        statusCode = nodeValue
+                    case "ResultCode"
+                        resultCode = nodeValue
+                    case "ResultMessage"
+                        resultMessage = nodeValue
+                end select
+            next
+        end if
     %>
-    <p><b>WireCard Non 3D Payment</b></p>
 
-
-    
-
+    <p><b>WireCard Non 3D Payment Result</b></p>
+    <p><b>Islem Sonucu :</b> <%= statusCode %></p>
+    <p><b>Aciklama     :</b> <%= resultMessage %></p>
+    <p><b>Kod          :</b> <%= resultCode %></p>    
+    ş
 </body>
 </html>

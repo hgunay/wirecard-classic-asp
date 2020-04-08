@@ -42,8 +42,6 @@ class CCProxySaleRequest
         set SrvHTTPS = Server.CreateObject("MSXML2.ServerXMLHTTP")
         SrvHTTPS.Open "POST", BaseUrl, false
         SrvHTTPS.Send ToXmlString
-
-        response.write ToXmlString
     
         Execute = SrvHTTPS.Responsetext
     end function

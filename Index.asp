@@ -2,9 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-language" content="tr">
+    <meta http-equiv="content-type" content="text/html; charset=windows-1254">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WireCard Classic ASP Test Ortamı</title>
-	<link rel="icon" href="favicon.png">
+	<link rel="icon" href="/favicon.png">
 	<!-- Styles -->
     <link href="/Assets/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="/Assets/css/style.css" rel="stylesheet" />
