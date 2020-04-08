@@ -3,7 +3,6 @@
 class CCProxySaleRequest
     public  ServiceType
     public  OperationType
-    public  CreditCardInfo
     public  MPAY
     public  CurrencyCode
     public  IPAddress
@@ -11,21 +10,42 @@ class CCProxySaleRequest
     public  InstallmentCount
     public  Description
     public  ExtraParam
-    public  CardTokenization
     public  Port
     public  BaseUrl
-	public  CustomerInfo
     public  Language
 
-    
+    ' Token Bilgileri
+    public UserCode
+    public Pin
+
+    ' Kredi Kartı Bilgileri
+    public CreditCardNo
+    public OwnerName
+    public ExpireYear
+    public ExpireMonth
+    public Cvv
+    public Price
+
+    ' CardTokenization Bilgileri
+    public RequestType
+    public CustomerId
+    public ValidityPeriod
+    public CCTokenId
+
+    ' Müşteri Bilgileri
+    public CustomerName
+    public CustomerSurname
+    public CustomerEmail
 
     public function Execute()
         dim SrvHTTPS
         set SrvHTTPS = Server.CreateObject("MSXML2.ServerXMLHTTP")
-        'SrvHTTPS.Open "POST", "BaseUrl", false
-        'SrvHTTPS.Send ToXmlString
+        SrvHTTPS.Open "POST", BaseUrl, false
+        SrvHTTPS.Send ToXmlString
+
+        response.write ToXmlString
     
-        'Execute = SrvHTTPS.Responsetext
+        Execute = SrvHTTPS.Responsetext
     end function
 
     function ToXmlString()
@@ -35,27 +55,27 @@ class CCProxySaleRequest
                 "<ServiceType>" & ServiceType & "</ServiceType>" & _
                 "<OperationType>" & OperationType & "</OperationType>" & _
                 "<Token>" & _
-                    "<UserCode>" & Token.UserCode & "</UserCode>" & _
-                    "<Pin>" & Token.UserPin & "</Pin>" & _
+                    "<UserCode>" & UserCode & "</UserCode>" & _
+                    "<Pin>" & Pin & "</Pin>" & _
                 "</Token>" & _
                 "<CreditCardInfo>" & _
-                    "<CreditCardNo>" & CreditCardInfo.CreditCardNo & "</CreditCardNo>" & _
-                    "<OwnerName>" & CreditCardInfo.OwnerName & "</OwnerName>" & _
-                    "<ExpireYear>" & CreditCardInfo.ExpireYear & "</ExpireYear>" & _
-                    "<ExpireMonth>" & CreditCardInfo.ExpireMonth & "</ExpireMonth>" & _
-                    "<Cvv>" & CreditCardInfo.Cvv & "</Cvv>" & _
-                    "<Price>" & CreditCardInfo.Price & "</Price>" & _
+                    "<CreditCardNo>" & CreditCardNo & "</CreditCardNo>" & _
+                    "<OwnerName>" & OwnerName & "</OwnerName>" & _
+                    "<ExpireYear>" & ExpireYear & "</ExpireYear>" & _
+                    "<ExpireMonth>" & ExpireMonth & "</ExpireMonth>" & _
+                    "<Cvv>" & Cvv & "</Cvv>" & _
+                    "<Price>" & Price & "</Price>" & _
                 "</CreditCardInfo>" & _
                 "<CardTokenization>" & _
-                    "<RequestType>" & CardTokenization.RequestType & "</RequestType>" & _
-                    "<CustomerId>" & CardTokenization.CustomerId & "</CustomerId>" & _
-                    "<ValidityPeriod>" & CardTokenization.ValidityPeriod & "</ValidityPeriod>" & _
-                    "<CCTokenId>" & CardTokenization.CCTokenId & "</CCTokenId>" & _
+                    "<RequestType>" & RequestType & "</RequestType>" & _
+                    "<CustomerId>" & CustomerId & "</CustomerId>" & _
+                    "<ValidityPeriod>" & ValidityPeriod & "</ValidityPeriod>" & _
+                    "<CCTokenId>" & CCTokenId & "</CCTokenId>" & _
                 "</CardTokenization>" & _
                 "<CustomerInfo>" & _
-                    "<CustomerName>" & CustomerInfo.CustomerName & "</CustomerName>" & _
-                    "<CustomerSurname>" & CustomerInfo.CustomerSurname & "</CustomerSurname>" & _
-                    "<CustomerEmail>" & CustomerInfo.CustomerEmail & "</CustomerEmail>" & _
+                    "<CustomerName>" & CustomerName & "</CustomerName>" & _
+                    "<CustomerSurname>" & CustomerSurname & "</CustomerSurname>" & _
+                    "<CustomerEmail>" & CustomerEmail & "</CustomerEmail>" & _
                 "</CustomerInfo>" & _
                 "<Language>" & Language & "</Language>" & _
                 "<MPAY>" & MPAY & "</MPAY>" & _
