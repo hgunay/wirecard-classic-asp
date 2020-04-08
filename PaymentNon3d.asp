@@ -16,7 +16,7 @@
         '-- WireCard Non 3D Payment ------------------------------------------
         '---------------------------------------------------------------------
         response.Clear()
-
+        
         response.write("<script language=javascript>console.log('WireCard Non 3D Payment'); </script>")
 
         dim saleRequest
