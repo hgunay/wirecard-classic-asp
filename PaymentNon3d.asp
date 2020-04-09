@@ -86,6 +86,5 @@
     <p><b>Islem Sonucu :</b> <%= statusCode %></p>
     <p><b>Aciklama     :</b> <%= resultMessage %></p>
     <p><b>Kod          :</b> <%= resultCode %></p>    
-    ş
 </body>
 </html>

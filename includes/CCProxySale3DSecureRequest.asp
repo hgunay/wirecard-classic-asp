@@ -1,6 +1,5 @@
-
 <%
-class CCProxySaleRequest
+class CCProxySale3DSecureRequest
     public  ServiceType
     public  OperationType
     public  MPAY
@@ -12,6 +11,8 @@ class CCProxySaleRequest
     public  ExtraParam
     public  Port
     public  BaseUrl
+    public  ErrorUrl
+    public  SuccessUrl
     public  Language
 
     ' Token Bilgileri
@@ -43,7 +44,37 @@ class CCProxySaleRequest
         srvObj.Open "POST", BaseUrl, false
         srvObj.Send ToXmlString
     
-        Execute = srvObj.Responsetext
+        dim wirecardResponse
+        wirecardResponse = srvObj.Responsetext
+        
+        if len(srvObj.Responsetext) > 0 then
+            dim responseXml
+            set responseXml     = Server.CreateObject("Microsoft.XMLDOM")
+            responseXml.async   = True
+            responseXml.LoadXML wirecardResponse
+
+            dim statusCode, redirectUrl
+            
+            dim resultNodes
+            set resultNodes = responseXml.selectNodes("//Item")
+                        
+            for each node in resultNodes
+                dim nodeKey, nodeValue
+                nodeKey = node.getAttribute("Key")
+                nodeValue = node.getAttribute("Value")
+                
+                select case nodeKey
+                    case "StatusCode"
+                        statusCode = nodeValue
+                    case "RedirectUrl"
+                        redirectUrl = nodeValue
+                end select
+            next
+
+            if statusCode = "0" then
+                response.redirect redirectUrl
+            end if
+        end if
     end function
 
     function ToXmlString()
@@ -78,6 +109,8 @@ class CCProxySaleRequest
                 "<Language>" & Language & "</Language>" & _
                 "<MPAY>" & MPAY & "</MPAY>" & _
                 "<CurrencyCode>" & CurrencyCode & "</CurrencyCode>" & _
+                "<ErrorURL>" & ErrorUrl & "</ErrorURL>" & _
+                "<SuccessURL>" & SuccessUrl & "</SuccessURL>" & _
                 "<IPAddress>" & IPAddress & "</IPAddress>" & _
                 "<PaymentContent>" & PaymentContent & "</PaymentContent>" & _
                 "<InstallmentCount>" & InstallmentCount & "</InstallmentCount>" & _
@@ -87,6 +120,5 @@ class CCProxySaleRequest
 
         ToXmlString = requestXml
     end function
-    
 end class
 %>
