@@ -1,4 +1,4 @@
-# wirecard-classic-asp
+# Wirecard Classic ASP
 Wirecard Ödeme Sistemleri Classic ASP Örnek Projesi
 
 https://www.wirecard.com.tr/
