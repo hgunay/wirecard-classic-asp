@@ -12,19 +12,9 @@
 	<link href="/Assets/css/style.css" rel="stylesheet" />
 </head>
 <body>
-<%
-	if (Request.ServerVariables("REQUEST_METHOD") = "POST") then
-		if (request.form("cc3dsec") = "1") then
-			response.redirect "/Payment3d.asp"
-		else
-			response.redirect "/PaymentNon3d.asp"
-		end if
-	end if
-%>
-
 <div class="container">
 	<div class="row justify-content-md-center">
-		<form method="post">
+		<form id="paymentForm" method="post" action="/PaymentNon3d.asp">
 			<div class="col-sm-12">
 				<div class="card">
 					<div class="card-header">
@@ -35,8 +25,8 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="form-group">
-									<label for="name">Kart Üzerindeki İsim</label>
-									<input class="form-control" id="name" type="text" autocomplete="cc-additional-name">
+									<label for="cc-name">Kart Üzerindeki İsim</label>
+									<input class="form-control" id="cc-name" name="cc-name" type="text" autocomplete="cc-additional-name">
 								</div>
 							</div>
 						</div>
@@ -45,7 +35,7 @@
 								<div class="form-group">
 									<label for="ccnumber">Kart No</label>
 									<div class="input-group">
-										<input class="form-control" id="cc-number" type="text" placeholder="0000 0000 0000 0000" autocomplete="cc-number" maxlength="19">
+										<input class="form-control" id="cc-number" name="cc-number" type="text" placeholder="0000 0000 0000 0000" autocomplete="cc-number" maxlength="19" value="">
 										<div class="input-group-append">
 											<span class="input-group-text">
 												<img id="card-logo">
@@ -59,7 +49,7 @@
 						<div class="row">
 							<div class="form-group col-sm-4">
 								<label for="ccmonth">Month</label>
-								<select class="form-control" id="ccmonth" autocomplete="cc-exp-month">
+								<select class="form-control" id="cc-month" name="cc-month" autocomplete="cc-exp-month">
 									<option>1</option>
 									<option>2</option>
 									<option>3</option>
@@ -76,7 +66,7 @@
 							</div>
 							<div class="form-group col-sm-4">
 								<label for="ccyear">Year</label>
-								<select class="form-control" id="ccyear" autocomplete="cc-exp-year">
+								<select class="form-control" id="cc-year" name="cc-year" autocomplete="cc-exp-year">
 									<option>2020</option>
 									<option>2021</option>
 									<option>2022</option>
@@ -93,7 +83,7 @@
 							<div class="col-sm-4">
 								<div class="form-group">
 									<label for="cvv">CVV/CVC</label>
-									<input class="form-control" id="cvv" type="text" placeholder="123" autocomplete="cc-csc">
+									<input class="form-control" id="cvv" name="cvv" type="text" placeholder="123" autocomplete="cc-csc">
 								</div>
 							</div>
 						</div>
@@ -118,5 +108,15 @@
     <script src="/Assets/js/jquery-3.4.1.min.js"></script>
     <script src="/Assets/js/bootstrap.min.js"></script>
     <script src="/Assets/js/site.js"></script>
+	<script type="text/javascript">
+		document.getElementById("cc3dsec").addEventListener('change', (event) => {
+			var formObj = document.getElementById("paymentForm");
+			if (event.target.checked) {
+				paymentForm.action = "/Payment3d.asp";
+			} else {
+				paymentForm.action = "/PaymentNon3d.asp";
+			}
+		});
+	</script>
 </body>
 </html>

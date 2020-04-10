@@ -1,19 +1,22 @@
 <%
 class CCProxySale3DSecureRequest
-    public  ServiceType
-    public  OperationType
-    public  MPAY
-    public  CurrencyCode
-    public  IPAddress
-    public  PaymentContent
-    public  InstallmentCount
-    public  Description
-    public  ExtraParam
-    public  Port
-    public  BaseUrl
-    public  ErrorUrl
-    public  SuccessUrl
-    public  Language
+    public ServiceType
+    public OperationType
+    public MPAY
+    public CurrencyCode
+    public IPAddress
+    public PaymentContent
+    public InstallmentCount
+    public Description
+    public ExtraParam
+    public Port
+    public BaseUrl
+    public Language
+    public Is3dsPayment
+
+    ' 3DS Bilgileri
+    public ErrorUrl
+    public SuccessUrl
 
     ' Token Bilgileri
     public UserCode
@@ -78,6 +81,9 @@ class CCProxySale3DSecureRequest
     end function
 
     function ToXmlString()
+        ' Kart numarasındaki boş stringleri RegEx ile temizliyoruz.
+        CreditCardNo = replaceWithRegex(CreditCardNo, "[^0-9]", "")
+
         dim requestXml
         requestXml = "<?xml version=""1.0"" encoding=""utf-8"" ?>" & _
             "<WIRECARD>" & _

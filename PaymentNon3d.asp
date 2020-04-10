@@ -19,11 +19,11 @@
     saleRequest.BaseUrl    = "https://test.wirecard.com.tr/SGate/Gate"
 
     ' Kredi Kartı Bilgileri
-    saleRequest.CreditCardNo    = "5401341234567891"
-    saleRequest.OwnerName       = "Hakan Günay"
-    saleRequest.ExpireYear      = "2026"
-    saleRequest.ExpireMonth     = "12"
-    saleRequest.Cvv             = "000"
+    saleRequest.CreditCardNo    = request.form("cc-number")
+    saleRequest.OwnerName       = request.form("cc-name")
+    saleRequest.ExpireYear      = request.form("cc-year")
+    saleRequest.ExpireMonth     = request.form("cc-month")
+    saleRequest.Cvv             = request.form("cvv")
     saleRequest.Price           = "1000"
 
     ' CardTokenization Bilgileri
@@ -39,8 +39,6 @@
 
     dim wirecardResponse
     wirecardResponse = saleRequest.Execute
-
-    response.write wirecardResponse
 
     if len(wirecardResponse) > 0 then
         dim responseXml
