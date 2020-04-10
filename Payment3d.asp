@@ -1,4 +1,4 @@
-<!-- #INCLUDE virtual="/includes/CCProxySale3DSecureRequest.asp" -->
+<!-- #INCLUDE virtual="/includes/CCProxySaleRequest.asp" -->
 <%
     '---------------------------------------------------------------------
     '-- WireCard 3D Payment ----------------------------------------------
@@ -8,12 +8,13 @@
     dim statusCode, resultCode, resultMessage
     
     dim saleRequest
-    set saleRequest = new CCProxySale3DSecureRequest
+    set saleRequest = new CCProxySaleRequest
     saleRequest.ServiceType         = "CCProxy"
     saleRequest.OperationType       = "Sale3DSEC"
     saleRequest.IPAddress           = "127.0.0.1"
     saleRequest.PaymentContent      = "3D Payment Test"
     saleRequest.InstallmentCount    = "0"
+    saleRequest.Is3dsPayment        = true
     saleRequest.ErrorUrl            = "http://localhost:81/PaymentResult.asp"
     saleRequest.SuccessUrl          = "http://localhost:81/PaymentResult.asp"
 

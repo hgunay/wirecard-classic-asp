@@ -39,7 +39,7 @@
 
     dim wirecardResponse
     wirecardResponse = saleRequest.Execute
-
+    
     if len(wirecardResponse) > 0 then
         dim responseXml
         set responseXml     = Server.CreateObject("Microsoft.XMLDOM")
@@ -83,6 +83,7 @@
         next
     end if
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
