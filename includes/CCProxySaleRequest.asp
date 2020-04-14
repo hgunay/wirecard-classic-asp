@@ -1,6 +1,6 @@
 <!-- #INCLUDE virtual="/includes/Functions.asp" -->
 <%
-    class CCProxySale3DSecureRequest
+    class CCProxySaleRequest
         public ServiceType
         public OperationType
         public MPAY

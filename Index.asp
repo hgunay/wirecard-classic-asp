@@ -48,7 +48,7 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-sm-4">
-								<label for="ccmonth">Month</label>
+								<label for="ccmonth">Ay</label>
 								<select class="form-control" id="cc-month" name="cc-month" autocomplete="cc-exp-month">
 									<option>1</option>
 									<option>2</option>
@@ -65,7 +65,7 @@
 								</select>
 							</div>
 							<div class="form-group col-sm-4">
-								<label for="ccyear">Year</label>
+								<label for="ccyear">Yıl</label>
 								<select class="form-control" id="cc-year" name="cc-year" autocomplete="cc-exp-year">
 									<option>2020</option>
 									<option>2021</option>
